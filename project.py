@@ -13,7 +13,8 @@ from sklearn.datasets import make_classification
 from sklearn.svm import SVC
 
 st.title("APLIKASI DATA MINING")
-st.write("Dibuat Oleh Nizam | 200411100193 untuk Project UAS")
+st.write("Author: Nicolaus Andiko Nugroho | 190411100136")
+st.write("Data Mining Project for Final Exam")
 import_data, preporcessing, modeling, implementation = st.tabs(["Import Data", "Prepocessing", "Modeling", "Implementation"])
 
 with import_data:
