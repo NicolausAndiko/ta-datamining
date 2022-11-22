@@ -21,6 +21,7 @@ with import_data:
     st.write("""# Import Data""")
     st.write("Data menggunakan data Social Network Ads")
     data = pd.read_csv("social_network_ads.csv")
+    data.head()
 
 with preporcessing:
     st.write("""# Preprocessing""")
