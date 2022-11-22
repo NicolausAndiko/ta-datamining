@@ -19,11 +19,8 @@ import_data, preporcessing, modeling, implementation = st.tabs(["Import Data", "
 
 with import_data:
     st.write("""# Import Data""")
-    uploaded_files = st.file_uploader("Upload file CSV", accept_multiple_files=True)
-    for uploaded_file in uploaded_files:
-        data = pd.read_csv(uploaded_file)
-        st.write("Nama File Anda = ", uploaded_file.name)
-        st.dataframe(data)
+    st.write("Data menggunakan data Social Network Ads")
+    data = pd.read_csv("social_network_ads.csv")
 
 if uploaded_file == True:
     with preporcessing:
