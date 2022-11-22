@@ -1,6 +1,7 @@
 import streamlit as st
 
-st.write("# Form Biodata")
+st.write("# Aplikasi Prediksi Mobil Pertama")
+st.write("Aplikasi ini dibuat sebagai prediksi mobil apakah yang cocok sebagai mobil pertama anda.")
 
 # st.markdown("Form Biodata")
 form1 = st.form(key = "form1")
