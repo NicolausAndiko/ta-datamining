@@ -15,7 +15,7 @@ from sklearn.svm import SVC
 st.title("APLIKASI DATA MINING")
 st.write("Author: Nicolaus Andiko Nugroho | 190411100136")
 st.write("Data Mining Project for Final Exam")
-import_data, preporcessing, modeling, implementation = st.tabs(["Import Data", "Prepocessing", "Modeling", "Implementation"])
+data_desc, import_data, preporcessing, modeling, implementation = st.tabs(["Deskripsi Data","Import Data", "Prepocessing", "Modeling", "Implementation"])
 
 with import_data:
     st.write("""# Import Data""")
