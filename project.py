@@ -50,6 +50,8 @@ with preporcessing:
     X = ct.fit_transform(X)
     st.dataframe(X)
 
+    # scaler = 
+
 
 # with modeling:
 #     st.write("""# Modeling""")
