@@ -1,7 +1,8 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
 from collections import OrderedDict
 from sklearn.naive_bayes import GaussianNB
@@ -24,22 +25,30 @@ with data_desc:
 with import_data:
     st.write("# Import Data")
     st.write("Data menggunakan data Social Network Ads")
-    data = pd.read_csv("https://github.com/NicolausAndiko/ta-datamining/blob/main/social_network_ads.csv")
-    data.head()
+    st.write("Data dapat diunduh di: https://www.kaggle.com/datasets/rakeshrau/social-network-ads?resource=download")
+    data = pd.read_csv("social_network_ads.csv", error_bad_lines=False)
+    st.dataframe(data)
 
 with preporcessing:
     st.write("""# Preprocessing""")
     st.write("Preprocessing adalah proses menyiapkan data dasar atau inti sebelum melakukan proses lainnya. \nPada dasarnya data preprocessing dapat dilakukan dengan membuang data yang tidak sesuai atau mengubah data menjadi bentuk yang lebih mudah untuk diproses oleh sistem. \nProses pembersihan meliputi penghilangan duplikasi data, pengisian atau penghapusan data yang hilang, pembetulan data yang tidak konsisten, dan pembetulan salah ketik. \nSeperti namanya, normalisasi dapat diartikan secara sederhana sebagai proses menormalkan data dari hal-hal yang tidak sesuai.")
     st.write("Dataset Asli:")
-    data.head()
+    st.dataframe(data)
 
     st.write("Drop User ID karena bukan merupakan fitur.")
-    X = data.drop(columns=["User ID"])
-    data.head()
+    data = data.drop(columns=["User ID"])
+    st.dataframe(data)
+    
+    st.write("Karena kolom Purchased adalah target, maka kita pisahkan variabel bebas dan variabel terikat")
+    X = data.iloc[:,:3].values
+    y = data.iloc[:,3].values
+    st.dataframe(X)
+    st.dataframe(y)
 
-    st.write("Ubah data gender dari kategorikal menjadi numerik")
-
-
+    st.write("Ubah data 'Gender' dari kategorikal menjadi numerik")
+    ct = ColumnTransformer([("Gender", OneHotEncoder(), [0])], remainder='passthrough')
+    X = ct.fit_transform(X)
+    st.dataframe(X)
 
 
 # with modeling:
