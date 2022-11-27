@@ -24,113 +24,21 @@ with data_desc:
 with import_data:
     st.write("""# Import Data""")
     st.write("Data menggunakan data Social Network Ads")
-    data = pd.read_csv("social_network_ads.csv")
+    data = pd.read_csv("https://github.com/NicolausAndiko/ta-datamining/blob/main/social_network_ads.csv")
     data.head()
 
 with preporcessing:
     st.write("""# Preprocessing""")
+    st.write("Preprocessing adalah proses menyiapkan data dasar atau inti sebelum melakukan proses lainnya. \nPada dasarnya data preprocessing dapat dilakukan dengan membuang data yang tidak sesuai atau mengubah data menjadi bentuk yang lebih mudah untuk diproses oleh sistem. \nProses pembersihan meliputi penghilangan duplikasi data, pengisian atau penghapusan data yang hilang, pembetulan data yang tidak konsisten, dan pembetulan salah ketik. \nSeperti namanya, normalisasi dapat diartikan secara sederhana sebagai proses menormalkan data dari hal-hal yang tidak sesuai.")
+    st.write("Dataset Asli:")
     data.head()
-    # create a dataframe with all training data except the target column
-    X = data.drop(columns=["risk_rating"])
 
-    # # check that the target variable has been removed
+    st.write("Drop User ID karena bukan merupakan fitur.")
+    X = data.drop(columns=["User ID"])
     X.head()
 
-    split_overdue_X = pd.get_dummies(X["rata_rata_overdue"], prefix="overdue")
-    X = X.join(split_overdue_X)
+    st.write("Ubah data gender dari kategorikal menjadi numerik")
 
-    X = X.drop(columns = "rata_rata_overdue")
-
-    labels = data["risk_rating"]
-    KPR_status = pd.get_dummies(X["kpr_aktif"], prefix="KPR")
-    X = X.join(KPR_status)
-
-    # remove "rata_rata_overdue" feature
-    X = X.drop(columns = "kpr_aktif")
-
-    st.write("menampilkan dataframe yang rata-rata overdue, risk rating dan kpr aktif sudah di drop")
-    st.dataframe(X)
-
-    st.write(" ## Normalisasi")
-    st.write("Normalize feature 'pendapatan_setahun_juta', 'durasi_pinjaman_bulan', 'jumlah_tanggungan'")
-    old_normalize_feature_labels = ['pendapatan_setahun_juta', 'durasi_pinjaman_bulan', 'jumlah_tanggungan']
-    new_normalized_feature_labels = ['norm_pendapatan_setahun_juta', 'norm_durasi_pinjaman_bulan', 'norm_jumlah_tanggungan']
-    normalize_feature = data[old_normalize_feature_labels]
-
-    st.dataframe(normalize_feature)
-
-    scaler = MinMaxScaler()
-
-    scaler.fit(normalize_feature)
-
-    normalized_feature = scaler.transform(normalize_feature)
-
-    normalized_feature_df = pd.DataFrame(normalized_feature, columns = new_normalized_feature_labels)
-
-    st.write("data setelah dinormalisasi")
-    st.dataframe(normalized_feature_df)
-
-    X = X.drop(columns = old_normalize_feature_labels)
-
-    X = X.join(normalized_feature_df)
-
-    X = X.join(labels)
-
-    st.write("dataframe X baru")
-    st.dataframe(X)
-
-    subject_lables = ["Unnamed: 0",  "kode_kontrak"]
-    X = X.drop(columns = subject_lables)
-
-    # percent_amount_of_test_data = / HUNDRED_PERCENT
-    percent_amount_of_test_data = 0.3
-
-    st.write("dataframe X baru yang tidak ada fitur/kolom unnamed: 0 dan kode kontrak")
-    st.dataframe(X)
-    st.write("## Hitung Data")
-    st.write("- Pisahkan kolom risk rating dari data frame")
-    st.write("- Ambil kolom 'risk rating' sebagai target kolom untuk kategori kelas")
-    st.write("- Pisahkan data latih dengan data tes")
-    st.write("""            Spliting Data
-                data latih (nilai data)
-                X_train 
-                data tes (nilai data)
-                X_test 
-                data latih (kelas data)
-                y_train
-                data tes (kelas data)
-                y_test""")
-
-    # separate target 
-
-    # values
-    matrices_X = X.iloc[:,0:10].values
-
-    # classes
-    matrices_Y = X.iloc[:,10].values
-
-    X_1 = X.iloc[:,0:10].values
-    Y_1 = X.iloc[:, -1].values
-
-    # X_train, X_test, y_train, y_test = train_test_split(matrices_X, matrices_Y, test_size = percent_amount_of_test_data, random_state=0)
-    X_train, X_test, y_train, y_test = train_test_split(X_1, Y_1, test_size = percent_amount_of_test_data, random_state=0)
-
-    st.write("Menampilkan Y_1")
-    st.write(Y_1)
-        
-    st.write("Menampilkan X_1")
-    st.write(X_1)
-    ### Dictionary to store model and its accuracy
-
-    model_accuracy = OrderedDict()
-
-    ### Dictionary to store model and its precision
-
-    model_precision = OrderedDict()
-
-    ### Dictionary to store model and its recall
-
-    model_recall = OrderedDict()
 
 
 with modeling:
