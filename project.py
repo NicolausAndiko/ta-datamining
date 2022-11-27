@@ -18,11 +18,11 @@ st.write("Data Mining Project for Final Exam")
 data_desc, import_data, preporcessing, modeling, implementation = st.tabs(["Deskripsi Data","Import Data", "Prepocessing", "Modeling", "Implementation"])
 
 with data_desc:
-    st.write("""# Deskripsi Data""")
-    st.write("Data ini merupakan data prediksi apakah orang ini akan membeli sebuah barang atau tidak. Pada kolom pertama terdapat fitur jenis kelamin, male or female. Kolom kedua merupakan kolom umur. Lalu kolom ketiga merupakan fitur perkiraan gaji. Lalu ada kolom yang di-drop yaitu User ID karena bukan merupakan fitur dari data mining.")
+    st.write("# Deskripsi Data")
+    st.write("Data ini merupakan data prediksi apakah orang ini akan membeli sebuah barang atau tidak. Pada kolom pertama terdapat fitur jenis kelamin, male or female. Kolom kedua merupakan kolom umur. Lalu kolom ketiga merupakan fitur perkiraan gaji. Lalu ada kolom yang akan di-drop yaitu User ID karena bukan merupakan fitur dari data mining.")
 
 with import_data:
-    st.write("""# Import Data""")
+    st.write("# Import Data")
     st.write("Data menggunakan data Social Network Ads")
     data = pd.read_csv("https://github.com/NicolausAndiko/ta-datamining/blob/main/social_network_ads.csv")
     data.head()
@@ -38,98 +38,98 @@ with preporcessing:
     data.head()
 
     st.write("Ubah data gender dari kategorikal menjadi numerik")
-    
 
 
 
-with modeling:
-    st.write("""# Modeling""")
-    naive_bayes, bagging_naive_bayes, bagging_decision_tree = st.tabs(["Naive Bayes", "Bagging Naive Bayes", "Bagging Decision Tree"])
 
-    with naive_bayes:
-        st.write("## Naive Bayes")
-        naive_bayes_classifier = GaussianNB()
-        naive_bayes_classifier.fit(X_train, y_train)
-        Y_pred_nb = naive_bayes_classifier.predict(X_test)
+# with modeling:
+#     st.write("""# Modeling""")
+#     naive_bayes, bagging_naive_bayes, bagging_decision_tree = st.tabs(["Naive Bayes", "Bagging Naive Bayes", "Bagging Decision Tree"])
 
-
-        ### Making the confusion matrix
-        cm = confusion_matrix(y_test, Y_pred_nb)
+#     with naive_bayes:
+#         st.write("## Naive Bayes")
+#         naive_bayes_classifier = GaussianNB()
+#         naive_bayes_classifier.fit(X_train, y_train)
+#         Y_pred_nb = naive_bayes_classifier.predict(X_test)
 
 
-        ### Printing the accuracy, precision, and recall of the model
-        st.write('Confusion matrix for Gaussian Naive Bayes\n',cm)
+#         ### Making the confusion matrix
+#         cm = confusion_matrix(y_test, Y_pred_nb)
 
-        naive_bayes_accuracy = round(100 * accuracy_score(y_test, Y_pred_nb), 2)
-        model_accuracy['Gaussian Naive Bayes'] = naive_bayes_accuracy
 
-        naive_bayes_precision = round(100 * precision_score(y_test, Y_pred_nb, average = 'weighted'), 2)
-        model_precision['Gaussian Naive Bayes'] = naive_bayes_precision
+#         ### Printing the accuracy, precision, and recall of the model
+#         st.write('Confusion matrix for Gaussian Naive Bayes\n',cm)
 
-        naive_bayes_recall = round(100 * recall_score(y_test, Y_pred_nb, average = 'weighted'), 2)
-        model_recall['Gaussian Naive Bayes'] = naive_bayes_recall
+#         naive_bayes_accuracy = round(100 * accuracy_score(y_test, Y_pred_nb), 2)
+#         model_accuracy['Gaussian Naive Bayes'] = naive_bayes_accuracy
 
-        st.write('The accuracy of this model is {} %.'.format(naive_bayes_accuracy))
-        st.write('The precision of this model is {} %.'.format(naive_bayes_precision))
-        st.write('The recall of this model is {} %.'.format(naive_bayes_recall))
+#         naive_bayes_precision = round(100 * precision_score(y_test, Y_pred_nb, average = 'weighted'), 2)
+#         model_precision['Gaussian Naive Bayes'] = naive_bayes_precision
 
-        st.write("## Menampilkan prediksi dengan Naive Bayes")
-        st.write(Y_pred_nb)
+#         naive_bayes_recall = round(100 * recall_score(y_test, Y_pred_nb, average = 'weighted'), 2)
+#         model_recall['Gaussian Naive Bayes'] = naive_bayes_recall
 
-    with bagging_naive_bayes:
-        st.write("## Bagging Naive Bayes")
-        clf = BaggingClassifier(base_estimator=GaussianNB(),n_estimators=10, random_state=0).fit(X_train, y_train)
-        rsc = clf.predict(X_test)
-        c = ['Naive Bayes']
-        Bayes = pd.DataFrame(rsc,columns = c)
+#         st.write('The accuracy of this model is {} %.'.format(naive_bayes_accuracy))
+#         st.write('The precision of this model is {} %.'.format(naive_bayes_precision))
+#         st.write('The recall of this model is {} %.'.format(naive_bayes_recall))
 
-        st.write("Menampilkan hasil prediksi dengan esamble naive bayes")
-        st.write(Bayes)
+#         st.write("## Menampilkan prediksi dengan Naive Bayes")
+#         st.write(Y_pred_nb)
 
-        bagging_Bayes = round(100 * accuracy_score(y_test, Bayes), 2)
-        st.write('The accuracy of this model is Bagging Naive Bayes {} %.'.format(bagging_Bayes))
+#     with bagging_naive_bayes:
+#         st.write("## Bagging Naive Bayes")
+#         clf = BaggingClassifier(base_estimator=GaussianNB(),n_estimators=10, random_state=0).fit(X_train, y_train)
+#         rsc = clf.predict(X_test)
+#         c = ['Naive Bayes']
+#         Bayes = pd.DataFrame(rsc,columns = c)
+
+#         st.write("Menampilkan hasil prediksi dengan esamble naive bayes")
+#         st.write(Bayes)
+
+#         bagging_Bayes = round(100 * accuracy_score(y_test, Bayes), 2)
+#         st.write('The accuracy of this model is Bagging Naive Bayes {} %.'.format(bagging_Bayes))
         
-    with bagging_decision_tree:
-        st.write("## Bagging Decision Tree")
-        clf_tree = BaggingClassifier(base_estimator=DecisionTreeClassifier(),n_estimators=10, random_state=0).fit(X_train, y_train)
-        rsc = clf_tree.predict(X_test)
-        c = ['Decision Tree']
-        tree = pd.DataFrame(rsc,columns = c)
+#     with bagging_decision_tree:
+#         st.write("## Bagging Decision Tree")
+#         clf_tree = BaggingClassifier(base_estimator=DecisionTreeClassifier(),n_estimators=10, random_state=0).fit(X_train, y_train)
+#         rsc = clf_tree.predict(X_test)
+#         c = ['Decision Tree']
+#         tree = pd.DataFrame(rsc,columns = c)
 
-        st.write("Menampilkan hasil prediksi dengan Essamble Decision Tree")
-        st.write(tree)
+#         st.write("Menampilkan hasil prediksi dengan Essamble Decision Tree")
+#         st.write(tree)
 
-        bagging_tree = round(100 * accuracy_score(y_test, tree), 2)
-        st.write('The accuracy of this model is Bagging Decision Tree {} %.'.format(bagging_tree))
+#         bagging_tree = round(100 * accuracy_score(y_test, tree), 2)
+#         st.write('The accuracy of this model is Bagging Decision Tree {} %.'.format(bagging_tree))
 
 
 
-    FIRST_IDX = 0
+#     FIRST_IDX = 0
 
-with implementation:
-    st.write("# Implementation")
-    nama_nasabah = st.text_input('Masukkan Nama Nasabah')
-    pendapatan_per_tahun = st.number_input('Masukkan pendapatan pertahun')
-    durasi_peminjaman = st.number_input('Masukkan Durasi Peminjaman')
-    jumlah_tanggungan = st.number_input('Masukkan Jumlah Tanggungan')
+# with implementation:
+#     st.write("# Implementation")
+#     nama_nasabah = st.text_input('Masukkan Nama Nasabah')
+#     pendapatan_per_tahun = st.number_input('Masukkan pendapatan pertahun')
+#     durasi_peminjaman = st.number_input('Masukkan Durasi Peminjaman')
+#     jumlah_tanggungan = st.number_input('Masukkan Jumlah Tanggungan')
 
-    clf = GaussianNB()
-    clf.fit(matrices_X, matrices_Y)
-    clf_pf = GaussianNB()
-    clf_pf.partial_fit(matrices_X, matrices_Y, np.unique(matrices_Y))
+#     clf = GaussianNB()
+#     clf.fit(matrices_X, matrices_Y)
+#     clf_pf = GaussianNB()
+#     clf_pf.partial_fit(matrices_X, matrices_Y, np.unique(matrices_Y))
 
-    cek_rasio_NB = st.button('Cek Risk Ratio dengan Naive Bayes')
-    cek_rasio_BNB = st.button('Cek Risk Ratio dengan Bagging Naive Bayes')
-    cek_rasio_DC = st.button('Cek Risk Ratio dengan Bagging Decision Tree')
+#     cek_rasio_NB = st.button('Cek Risk Ratio dengan Naive Bayes')
+#     cek_rasio_BNB = st.button('Cek Risk Ratio dengan Bagging Naive Bayes')
+#     cek_rasio_DC = st.button('Cek Risk Ratio dengan Bagging Decision Tree')
 
-    if cek_rasio_NB:
-        result_test_naive_bayes = clf_pf.predict([[0,	0,	0,	0,	0,	0,	1,	pendapatan_per_tahun,	durasi_peminjaman, jumlah_tanggungan]])[FIRST_IDX]
-        st.write(f"Customer Name : ", nama_nasabah,  "has risk rating", result_test_naive_bayes ,"based on Bagging Gaussian Naive Bayes model")
+#     if cek_rasio_NB:
+#         result_test_naive_bayes = clf_pf.predict([[0,	0,	0,	0,	0,	0,	1,	pendapatan_per_tahun,	durasi_peminjaman, jumlah_tanggungan]])[FIRST_IDX]
+#         st.write(f"Customer Name : ", nama_nasabah,  "has risk rating", result_test_naive_bayes ,"based on Bagging Gaussian Naive Bayes model")
         
-    if cek_rasio_BNB:
-        result_test_naive_bayes_bagging = clf.predict([[0,	0,	0,	0,	0,	0,	1,	pendapatan_per_tahun,	durasi_peminjaman, jumlah_tanggungan]])[FIRST_IDX]
-        st.write(f"Customer Name : ", nama_nasabah,  "has risk rating", result_test_naive_bayes_bagging ,"based on Bagging Gaussian Naive Bayes model")
+#     if cek_rasio_BNB:
+#         result_test_naive_bayes_bagging = clf.predict([[0,	0,	0,	0,	0,	0,	1,	pendapatan_per_tahun,	durasi_peminjaman, jumlah_tanggungan]])[FIRST_IDX]
+#         st.write(f"Customer Name : ", nama_nasabah,  "has risk rating", result_test_naive_bayes_bagging ,"based on Bagging Gaussian Naive Bayes model")
 
-    if cek_rasio_DC:
-        result_test_decision_tree = clf_tree.predict([[0,	0,	0,	0,	0,	0,	1,	pendapatan_per_tahun,	durasi_peminjaman, jumlah_tanggungan]])[FIRST_IDX]
-        st.write(f"Customer Name : ", nama_nasabah,  "has risk rating", result_test_decision_tree ,"based on Bagging Gaussian Naive Bayes model")
+#     if cek_rasio_DC:
+#         result_test_decision_tree = clf_tree.predict([[0,	0,	0,	0,	0,	0,	1,	pendapatan_per_tahun,	durasi_peminjaman, jumlah_tanggungan]])[FIRST_IDX]
+#         st.write(f"Customer Name : ", nama_nasabah,  "has risk rating", result_test_decision_tree ,"based on Bagging Gaussian Naive Bayes model")
