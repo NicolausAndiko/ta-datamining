@@ -35,9 +35,10 @@ with preporcessing:
 
     st.write("Drop User ID karena bukan merupakan fitur.")
     X = data.drop(columns=["User ID"])
-    X.head()
+    data.head()
 
     st.write("Ubah data gender dari kategorikal menjadi numerik")
+    
 
 
 
