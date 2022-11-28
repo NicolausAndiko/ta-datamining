@@ -138,13 +138,13 @@ with implementation:
             imp_gender_male = 0
         
         data_imp = np.array([[imp_age, imp_salary, imp_gender_female, imp_gender_male]])
-        # st.write(data_imp)
+        st.write(data_imp)
         data_imp_scaled = scaler.fit_transform(data_imp)
-        # st.dataframe(data_imp_scaled)
+        st.write(data_imp_scaled)
 
         y_imp = {0: 'Tidak', 1: 'Ya'}
 
-        with knn:
-            y_pred_knn_imp = knn_model.predict(data_imp_scaled)
-            st.write(y_pred_knn_imp)
+        # with knn:
+        #     y_pred_knn_imp = knn_model.predict(data_imp_scaled)
+        #     st.write(y_pred_knn_imp)
 
