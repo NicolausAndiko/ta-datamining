@@ -70,7 +70,7 @@ with modeling:
     st.write("# Modeling") 
     knn, naive_bayes, decision_tree, bagging_decision_tree = st.tabs(["K-NN","Naive Bayes", "Decision Tree", "Bagging Decision Tree"])
 
-    X_train, X_test, y_train, y_test = train_test_split(scaled_features, y, test_size=0.2, random_state=1)
+    X_train, X_test, y_train, y_test = train_test_split(scaled_features, y, test_size=0.3, random_state=1)
 
     with knn:
         st.write("## K-Nearest Neighbor")
@@ -88,7 +88,6 @@ with modeling:
         knn_model = KNeighborsClassifier(n_neighbors=best_k)
         knn_model.fit(X_train, y_train)
         st.write("K terbaik = ",best_k-1,"dengan akurasi :",{max(K.values())* 100},"%")
-        # st.write("Akurasi dengan menggunakan metode K-NN: {} %.".format(knn_accuracy))
 
     with naive_bayes:
         st.write("## Naive Bayes")
@@ -138,13 +137,14 @@ with implementation:
             imp_gender_male = 0
         
         data_imp = np.array([[imp_age, imp_salary, imp_gender_female, imp_gender_male]])
-        st.write(data_imp)
-        data_imp_scaled = scaler.fit_transform(data_imp)
-        st.write(data_imp_scaled)
+        X = X.append(pd.DataFrame(data_imp, columns = list(X)), ignore_index = True)
+        newScaled = scaler.fit_transform(X)
+        newScaled = pd.DataFrame(newScaled, columns=features_names)
+        data_imp_scaler = newScaled.iloc[-1:]
 
         y_imp = {0: 'Tidak', 1: 'Ya'}
 
-        # with knn:
-        #     y_pred_knn_imp = knn_model.predict(data_imp_scaled)
-        #     st.write(y_pred_knn_imp)
+        with knn:
+            y_pred_knn_imp = knn_model.predict(data_imp_scaler)
+            st.write(y_pred_knn_imp)
 
