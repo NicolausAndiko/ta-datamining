@@ -12,7 +12,6 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
 
 st.title("APLIKASI DATA MINING")
 st.write("Author: Nicolaus Andiko Nugroho | 190411100136")
