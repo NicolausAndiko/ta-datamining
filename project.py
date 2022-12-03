@@ -43,9 +43,6 @@ with preporcessing:
     st.dataframe(X)
 
     st.write("Ubah data 'Gender' dari kategorikal menjadi numerik")
-    # ct = ColumnTransformer([("Gender", OneHotEncoder(), [0])], remainder='passthrough')
-    # X = ct.fit_transform(X)
-
     split_overdue_X = pd.get_dummies(X["Gender"], prefix="Gender")
     X = X.join(split_overdue_X)
     X = X.drop(columns="Gender")
@@ -142,9 +139,30 @@ with implementation:
         newScaled = pd.DataFrame(newScaled, columns=features_names)
         data_imp_scaler = newScaled.iloc[-1:]
 
-        y_imp = {0: 'Tidak', 1: 'Ya'}
-
         with knn:
             y_pred_knn_imp = knn_model.predict(data_imp_scaler)
-            st.write(y_pred_knn_imp)
+            if (y_pred_knn_imp[0] == 0):
+                st.write("Anda diprediksi tidak membeli barang ini")
+            elif (y_pred_knn_imp[0] == 1):
+                st.write("Anda diprediksi membeli barang ini")
+        
+        with naive_bayes:
+            y_pred_nb_imp = naive_bayes_classifier.predict(data_imp_scaler)
+            if (y_pred_nb_imp[0] == 0):
+                st.write("Anda diprediksi tidak membeli barang ini")
+            elif (y_pred_nb_imp[0] == 1):
+                st.write("Anda diprediksi membeli barang ini")
 
+        with decision_tree:
+            y_pred_dt_imp = dt.predict(data_imp_scaler)
+            if (y_pred_dt_imp[0] == 0):
+                st.write("Anda diprediksi tidak membeli barang ini")
+            elif (y_pred_dt_imp[0] == 1):
+                st.write("Anda diprediksi membeli barang ini")
+        
+        with bagging_decision_tree:
+            y_pred_bag_imp = clf_tree.predict(data_imp_scaler)
+            if (y_pred_bag_imp[0] == 0):
+                st.write("Anda diprediksi tidak membeli barang ini")
+            elif (y_pred_bag_imp[0] == 1):
+                st.write("Anda diprediksi membeli barang ini")
