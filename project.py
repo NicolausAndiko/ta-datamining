@@ -140,6 +140,7 @@ with implementation:
         data_imp_scaler = newScaled.iloc[-1:]
 
         with knn:
+            st.write("## Prediksi menggunakan K-NN")
             y_pred_knn_imp = knn_model.predict(data_imp_scaler)
             if (y_pred_knn_imp[0] == 0):
                 st.write("Anda diprediksi tidak membeli barang ini")
@@ -147,6 +148,7 @@ with implementation:
                 st.write("Anda diprediksi membeli barang ini")
         
         with naive_bayes:
+            st.write("## Prediksi menggunakan Naive Bayes")
             y_pred_nb_imp = naive_bayes_classifier.predict(data_imp_scaler)
             if (y_pred_nb_imp[0] == 0):
                 st.write("Anda diprediksi tidak membeli barang ini")
@@ -154,6 +156,7 @@ with implementation:
                 st.write("Anda diprediksi membeli barang ini")
 
         with decision_tree:
+            st.write("## Prediksi menggunakan Decision Tree")
             y_pred_dt_imp = dt.predict(data_imp_scaler)
             if (y_pred_dt_imp[0] == 0):
                 st.write("Anda diprediksi tidak membeli barang ini")
@@ -161,6 +164,7 @@ with implementation:
                 st.write("Anda diprediksi membeli barang ini")
         
         with bagging_decision_tree:
+            st.write("## Prediksi menggunakan Bagging Decision Tree")
             y_pred_bag_imp = clf_tree.predict(data_imp_scaler)
             if (y_pred_bag_imp[0] == 0):
                 st.write("Anda diprediksi tidak membeli barang ini")
