@@ -20,7 +20,7 @@ data_desc, import_data, preporcessing, modeling, implementation = st.tabs(["Desk
 
 with data_desc:
     st.write("# Deskripsi Data")
-    st.write("Data ini merupakan data prediksi apakah orang ini akan membeli sebuah barang atau tidak. Pada kolom pertama terdapat fitur jenis kelamin, male or female. Kolom kedua merupakan kolom umur. Lalu kolom ketiga merupakan fitur perkiraan gaji. Lalu ada kolom yang akan di-drop yaitu User ID karena bukan merupakan fitur dari data mining.")
+    st.write("Data ini merupakan data klasifikasi apakah orang ini akan membeli sebuah mobil SUV atau tidak setelah melihat iklan mobil tersebut. Pada kolom pertama terdapat fitur jenis kelamin, male or female. Kolom kedua merupakan kolom umur. Lalu kolom ketiga merupakan fitur perkiraan gaji. Lalu ada kolom yang akan di-drop yaitu User ID karena bukan merupakan fitur dari data mining.")
 
 with import_data:
     st.write("# Import Data")
